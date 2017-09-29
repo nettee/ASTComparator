@@ -49,12 +49,17 @@ public class Ast {
         return sb.toString();
     }
 
-    public double similarityTo(Ast other) {
-        return 0.0;
+    public double similarityTo(Ast that) {
+        VectorCounter thisVector = this.countVector();
+        VectorCounter thatVector = that.countVector();
+        double cosine = thisVector.cosine(thatVector);
+        return cosine;
     }
 
-    public void print() {
-        PrintVisitor visitor = new PrintVisitor();
+    public VectorCounter countVector() {
+        VectorCounter counter = new VectorCounter();
+        VectorCountVisitor visitor = new VectorCountVisitor(counter);
         root.accept(visitor);
+        return counter;
     }
 }
