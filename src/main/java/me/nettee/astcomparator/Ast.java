@@ -49,4 +49,12 @@ public class Ast {
         return sb.toString();
     }
 
+    public double similarityTo(Ast other) {
+        return 0.0;
+    }
+
+    public void print() {
+        PrintVisitor visitor = new PrintVisitor();
+        root.accept(visitor);
+    }
 }
