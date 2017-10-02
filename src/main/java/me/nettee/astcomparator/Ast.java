@@ -49,17 +49,43 @@ public class Ast {
         return sb.toString();
     }
 
-    public double similarityTo(Ast that) {
-        VectorCounter thisVector = this.countVector();
-        VectorCounter thatVector = that.countVector();
-        double cosine = thisVector.cosine(thatVector);
-        return cosine;
-    }
-
     public VectorCounter countVector() {
         VectorCounter counter = new VectorCounter();
         VectorCountVisitor visitor = new VectorCountVisitor(counter);
         root.accept(visitor);
         return counter;
+    }
+
+    public String flatten() {
+        FlattenVisitor flattenVisitor = new FlattenVisitor();
+        root.accept(flattenVisitor);
+        return flattenVisitor.getString();
+    }
+
+    public double similarityTo(Ast that) {
+        VectorSimilarityCalculator calculator = new VectorSimilarityCalculator();
+        return calculator.similarity(this, that);
+    }
+
+    private interface SimilarityCalculator {
+        double similarity(Ast a, Ast b);
+    }
+
+    private static class VectorSimilarityCalculator implements SimilarityCalculator {
+        public double similarity(Ast a, Ast b) {
+            VectorCounter v1 = a.countVector();
+            VectorCounter v2 = b.countVector();
+            double cosine = v1.cosine(v2);
+            return cosine;
+        }
+    }
+
+    private static class EditDistanceSimilarityCalculator implements  SimilarityCalculator {
+
+        public double similarity(Ast a, Ast b) {
+            String s1 = a.flatten();
+            String s2 = b.flatten();
+            return 0.0;
+        }
     }
 }

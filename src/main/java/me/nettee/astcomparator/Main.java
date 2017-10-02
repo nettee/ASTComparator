@@ -26,7 +26,7 @@ public class Main {
         }
     }
 
-    private static final HashMap<String, String> PATHS = new HashMap<String, String>() {
+    public static final HashMap<String, String> PATHS = new HashMap<String, String>() {
         {
             put("person", "/home/william/projects/java/query.example/src/simple/extension/Person.java");
             put("student", "/home/william/projects/java/query.example/src/simple/extension/Student.java");
