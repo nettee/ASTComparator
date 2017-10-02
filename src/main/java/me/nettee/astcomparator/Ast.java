@@ -1,5 +1,6 @@
 package me.nettee.astcomparator;
 
+import org.apache.commons.text.similarity.LevenshteinDistance;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTParser;
@@ -63,12 +64,15 @@ public class Ast {
     }
 
     public double similarityTo(Ast that) {
-        VectorSimilarityCalculator calculator = new VectorSimilarityCalculator();
+        return similarityTo(that, new EditDistanceSimilarityCalculator());
+    }
+
+    public double similarityTo(Ast that, SimilarityCalculator calculator) {
         return calculator.similarity(this, that);
     }
 
     private interface SimilarityCalculator {
-        double similarity(Ast a, Ast b);
+        double similarity(Ast ast1, Ast ast2);
     }
 
     private static class VectorSimilarityCalculator implements SimilarityCalculator {
@@ -80,12 +84,15 @@ public class Ast {
         }
     }
 
-    private static class EditDistanceSimilarityCalculator implements  SimilarityCalculator {
+    private static class EditDistanceSimilarityCalculator implements SimilarityCalculator {
 
         public double similarity(Ast a, Ast b) {
             String s1 = a.flatten();
             String s2 = b.flatten();
-            return 0.0;
+            LevenshteinDistance distance = new LevenshteinDistance();
+            int dist = distance.apply(s1, s2);
+            int len = Math.max(s1.length(), s2.length());
+            return 1 - (double) dist / (double) len;
         }
     }
 }
