@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Flatten the AST to a string.
+ */
 public class FlattenVisitor extends ASTVisitor {
 
     private final StringBuilder sb;
@@ -26,7 +29,6 @@ public class FlattenVisitor extends ASTVisitor {
         }
         String classname = node.getClass().getSimpleName();
         String label = NODE_LABELS.get(classname);
-//        String label = classname;
         sb.append(label);
     }
 
@@ -153,15 +155,5 @@ public class FlattenVisitor extends ASTVisitor {
             put("WildcardType", "~");
         }
     };
-
-    public static void main(String[] args) {
-//        String path = Main.PATHS.get("person");
-        for (String path : Main.PATHS.values()) {
-            Ast ast = Ast.fromFile(path);
-            String flattened = ast.flatten();
-            System.out.println(path);
-            System.out.println(flattened);
-        }
-    }
 
 }

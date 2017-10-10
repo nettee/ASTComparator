@@ -28,10 +28,10 @@ public class Main {
 
     public static final HashMap<String, String> PATHS = new HashMap<String, String>() {
         {
-            put("person", "/home/william/projects/java/query.example/src/simple/extension/Person.java");
-            put("student", "/home/william/projects/java/query.example/src/simple/extension/Student.java");
-            put("undergraduate", "/home/william/projects/java/query.example/src/simple/extension/UnderGraduate.java");
-            put("graduate", "/home/william/projects/java/query.example/src/simple/extension/Graduate.java");
+            put("person", "/home/william/projects/java/astcomparator/src/main/res/Person.java");
+            put("student", "/home/william/projects/java/astcomparator/src/main/res/Student.java");
+            put("undergraduate", "/home/william/projects/java/astcomparator/src/main/res/UnderGraduate.java");
+            put("graduate", "/home/william/projects/java/astcomparator/src/main/res/Graduate.java");
         }
     };
 }

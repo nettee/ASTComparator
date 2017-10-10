@@ -64,6 +64,7 @@ public class Ast {
     }
 
     public double similarityTo(Ast that) {
+        // Use edit distance in default.
         return similarityTo(that, new EditDistanceSimilarityCalculator());
     }
 
@@ -75,7 +76,7 @@ public class Ast {
         double similarity(Ast ast1, Ast ast2);
     }
 
-    private static class VectorSimilarityCalculator implements SimilarityCalculator {
+    public static class VectorSimilarityCalculator implements SimilarityCalculator {
         public double similarity(Ast a, Ast b) {
             VectorCounter v1 = a.countVector();
             VectorCounter v2 = b.countVector();
@@ -84,7 +85,7 @@ public class Ast {
         }
     }
 
-    private static class EditDistanceSimilarityCalculator implements SimilarityCalculator {
+    public static class EditDistanceSimilarityCalculator implements SimilarityCalculator {
 
         public double similarity(Ast a, Ast b) {
             String s1 = a.flatten();
